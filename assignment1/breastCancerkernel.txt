@@ -1,0 +1,6 @@
+['linear', 'poly', 'rbf', 'sigmoid']
+average training score for each algorithm
+[0.97462926 0.97354709 0.97699399 0.96697395]
+============================================
+average vakidation score for each algorithm
+[0.97197605 0.96946108 0.96982036 0.96790419]

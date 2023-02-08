@@ -1,0 +1,6 @@
+['auto' 'ball_tree' 'kd_tree' 'brute']
+average training score for each algorithm
+[0.87623064 0.87623064 0.87623064 0.87623064]
+============================================
+average vakidation score for each algorithm
+[0.81582669 0.81582669 0.81582669 0.81582669]

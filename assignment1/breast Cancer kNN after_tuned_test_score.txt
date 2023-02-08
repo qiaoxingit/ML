@@ -1,0 +1,9 @@
+Model Evaluation Metrics Using Untouched Test Dataset
+*****************************************************
+Model Training Time (s):   0.00094
+Model Prediction Time (s): 0.00673
+
+F1 Score:  0.97
+Accuracy:  0.97
+Precision: 0.97     Recall:    0.97
+*****************************************************

@@ -4,7 +4,7 @@ import pandas as pd
 import os
 import sys
 import matplotlib.pyplot as plt
-from util import plot_learning_curve, plot_tuning_curve,after_tuned_evaluation
+from util import plot_learning_curve, plot_tuning_curve,after_tuned_evaluation, load_breastCancer, load_winequality
 from sklearn.model_selection import train_test_split, cross_validate,ShuffleSplit
 
 def boost_learning_rate(trainX, trainy, title):
@@ -37,13 +37,7 @@ def boost_n_estimators(trainX, trainy, title):
 
 
 def breastCancerboost():
-    breastCancer = pd.read_csv('breastCancer.csv', sep=',')
-
-    X = breastCancer.values[:, 0:-1]
-    y = breastCancer.values[:, -1]
-
-    breastCancer_training_X, breastCancer_test_X, breastCancer_training_y, breastCancer_test_y = train_test_split(
-        X, y, random_state=0, test_size=0.25)
+    breastCancer_training_X, breastCancer_training_y, breastCancer_test_X,  breastCancer_test_y = load_breastCancer()
 
     boost_learning_rate(breastCancer_training_X, breastCancer_training_y, 'breastCancer')
     boost_n_estimators(breastCancer_training_X, breastCancer_training_y, 'breastCancer')
@@ -55,13 +49,7 @@ def breastCancerboost():
 
 
 def winequalityboost():
-    winequality = pd.read_csv('winequality.csv', sep=',')
-
-    X = winequality.values[:, 0:-1]
-    y = winequality.values[:, -1]
-
-    winequality_training_X,winequality_test_X, winequality_training_y, winequality_test_y = train_test_split(
-        X, y, random_state=0, test_size=0.25)
+    winequality_training_X, winequality_training_y, winequality_test_X, winequality_test_y = load_winequality()
 
     boost_learning_rate(winequality_training_X, winequality_training_y, 'winequality')
     boost_n_estimators(winequality_training_X, winequality_training_y, 'winequality')

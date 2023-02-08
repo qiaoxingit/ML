@@ -1,0 +1,6 @@
+['linear', 'poly', 'rbf', 'sigmoid']
+average training score for each algorithm
+[0.53521609 0.4664294  0.7489554  0.28572914]
+============================================
+average validation score for each algorithm
+[0.53100173 0.46388908 0.72225997 0.28788908]

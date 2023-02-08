@@ -4,7 +4,7 @@ import pandas as pd
 import os
 import sys
 import matplotlib.pyplot as plt
-from util import plot_learning_curve, plot_tuning_curve,after_tuned_evaluation
+from util import plot_learning_curve, plot_tuning_curve,after_tuned_evaluation, load_winequality, load_breastCancer
 from sklearn.model_selection import train_test_split, cross_validate,ShuffleSplit
 
 def svm_c(trainX, trainy, title):
@@ -42,20 +42,14 @@ def svm_kernel(trainX, trainy, title):
     print("average training score for each algorithm")
     print(np.mean(train_scores, axis = 1))
     print("============================================")
-    print("average vakidation score for each algorithm")
+    print("average validation score for each algorithm")
     print(np.mean(test_scores, axis = 1) )
     
     sys.stdout.close()
 
 
 def breastCancerSVM():
-    breastCancer = pd.read_csv('breastCancer.csv', sep=',')
-
-    X = breastCancer.values[:, 0:-1]
-    y = breastCancer.values[:, -1]
-
-    breastCancer_training_X, breastCancer_test_X, breastCancer_training_y, breastCancer_test_y = train_test_split(
-        X, y, random_state=0, test_size=0.25)
+    breastCancer_training_X, breastCancer_training_y, breastCancer_test_X,  breastCancer_test_y = load_breastCancer()
 
     svm_c(breastCancer_training_X, breastCancer_training_y, 'breastCancer')
     svm_kernel(breastCancer_training_X, breastCancer_training_y, 'breastCancer')
@@ -67,13 +61,7 @@ def breastCancerSVM():
 
 
 def winequalitySVM():
-    winequality = pd.read_csv('winequality.csv', sep=',')
-
-    X = winequality.values[:, 0:-1]
-    y = winequality.values[:, -1]
-
-    winequality_training_X,winequality_test_X, winequality_training_y, winequality_test_y = train_test_split(
-        X, y, random_state=0, test_size=0.25)
+    winequality_training_X, winequality_training_y, winequality_test_X, winequality_test_y = load_winequality()
 
     svm_c(winequality_training_X, winequality_training_y, 'winequality')
     svm_kernel(winequality_training_X, winequality_training_y, 'winequality')
