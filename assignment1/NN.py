@@ -1,11 +1,9 @@
 import numpy as np
 import pandas as pd
 import os
-import sys
 import matplotlib.pyplot as plt
 from sklearn.neural_network import MLPClassifier
-from util import plot_learning_curve, plot_tuning_curve
-from sklearn.model_selection import cross_val_score
+from util import plot_learning_curve, plot_tuning_curve, after_tuned_evaluation
 from sklearn.model_selection import train_test_split, cross_validate,ShuffleSplit
 from sklearn.metrics import accuracy_score, confusion_matrix, mean_squared_error
 
@@ -26,7 +24,7 @@ def hidden_layers(trainX, trainy, title):
 
 
 def nn_learning_rate(trainX, trainy, title):
-    learning_rates = np.arange(0.001, 0.01, 0.001)
+    learning_rates = np.linspace(1e-6, 1, 10)
     test_scores = []
     train_scores = []
     for i in learning_rates:
@@ -63,7 +61,9 @@ def breastCancerNN():
     hidden_layers(breastCancer_training_X, breastCancer_training_y, 'breastCancer')
     nn_learning_rate(breastCancer_training_X, breastCancer_training_y, 'breastCancer')
     
-    clf = MLPClassifier(hidden_layer_sizes=(3,), learning_rate_init=0.001, random_state=0)
+    clf = MLPClassifier(hidden_layer_sizes=(3,), alpha= 5e-5, random_state=0)
+
+    after_tuned_evaluation(clf, breastCancer_training_X, breastCancer_training_y, breastCancer_test_X, breastCancer_test_y, "breast cancer NN ")
     
     plot_learning_curve(clf, breastCancer_training_X, breastCancer_training_y, title="breast cancer learning curve neural network")
     run_loss_curve(clf, breastCancer_training_X, breastCancer_training_y, "breast cancer loss curve")
@@ -83,15 +83,17 @@ def winequalityNN():
     nn_learning_rate(winequality_training_X, winequality_training_y,
            'breastCancer')
     
-    clf = MLPClassifier(hidden_layer_sizes=(5,), learning_rate_init=0.001, random_state=0)
+    clf = MLPClassifier(hidden_layer_sizes=(3,), alpha= 5e-5, random_state=0)
+
+    after_tuned_evaluation(clf, winequality_training_X, winequality_training_y, winequality_test_X, winequality_test_y, "wine quality NN ")
     
     plot_learning_curve(clf, winequality_training_X, winequality_training_y, title="breast cancer learning curve neural network")
     run_loss_curve(clf, winequality_training_X, winequality_training_y, "breast cancer loss curve")
 
-if __name__ == "__main__":
-    if not os.path.exists('images'):
-        os.makedirs('images')
+# if __name__ == "__main__":
+#     if not os.path.exists('images'):
+#         os.makedirs('images')
 
-    breastCancerNN()
-    winequalityNN()
+#     breastCancerNN()
+#     winequalityNN()
     

@@ -4,14 +4,14 @@ import os
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
 import sklearn.tree as tree
-from util import plot_learning_curve, plot_tuning_curve
+from util import plot_learning_curve, plot_tuning_curve, after_tuned_evaluation
 from sklearn.model_selection import train_test_split,  GridSearchCV,learning_curve,ShuffleSplit, cross_validate
-from sklearn.metrics import accuracy_score
+from imblearn.over_sampling import RandomOverSampler
 
 
 # pre pruning max_depth
 def tree_max_depth(trainX, trainy, title):
-    max_depth = range(1, 30, 2)
+    max_depth = np.linspace(1, 22, 15, dtype=int)
     train_scores=[]
     test_scores=[]
     for i in max_depth:
@@ -62,8 +62,11 @@ def breastCancerDT():
     X = breastCancer.values[:, 0:-1]
     y = breastCancer.values[:, -1]
 
+    ros = RandomOverSampler(random_state=42)
+    X_res, y_res=ros.fit_resample(X, y)
+
     breastCancer_training_X, breastCancer_test_X, breastCancer_training_y, breastCancer_test_y = train_test_split(
-        X, y, random_state=0, test_size=0.25)
+        X_res, y_res, random_state=0, test_size=0.25)
 
     tree_max_depth(breastCancer_training_X, breastCancer_training_y, 'breastCancer')
     
@@ -71,18 +74,23 @@ def breastCancerDT():
         breastCancer_test_X, breastCancer_test_y, 'breastCancer')
 
     clf = DecisionTreeClassifier(
-        max_depth=5, min_samples_leaf=3, random_state=0)
+        max_depth=None, min_samples_leaf=1, random_state=0, ccp_alpha=0.01)
+
+    after_tuned_evaluation(clf, breastCancer_training_X, breastCancer_training_y, breastCancer_test_X, breastCancer_test_y, "breast cancer DT ")
     plot_learning_curve(clf, breastCancer_training_X, breastCancer_training_y,
                     title="breast cancer learning curve decision tree")
 
 def winequalityDT():
-    winequality = pd.read_csv('winequality.csv', sep=',')
+    winequality = pd.read_csv('winequality.csv', sep=';')
 
     X = winequality.values[:, 0:-1]
     y = winequality.values[:, -1]
 
+    ros = RandomOverSampler(random_state=42)
+    X_res, y_res=ros.fit_resample(X, y)
+
     winequality_training_X, winequality_test_X, winequality_training_y, winequality_test_y = train_test_split(
-        X, y, random_state=0, test_size=0.25)
+        X_res, y_res, random_state=0, test_size=0.25)
 
     tree_max_depth(winequality_training_X, winequality_training_y, 'winequality')
 
@@ -90,7 +98,9 @@ def winequalityDT():
         winequality_test_X, winequality_test_y, 'winequality') 
 
     clf = DecisionTreeClassifier(
-        max_depth=5, min_samples_leaf=20, random_state=0)
+        max_depth=2, min_samples_leaf=1, random_state=0, ccp_alpha=0.1)
+
+    after_tuned_evaluation(clf, winequality_training_X, winequality_training_y, winequality_test_X, winequality_test_y, "wind quality DT ")
     plot_learning_curve(clf, winequality_training_X, winequality_training_y,
                     title="wine quality learning curve decision tree")
 
@@ -99,5 +109,5 @@ if __name__ == "__main__":
     if not os.path.exists('images'):
         os.makedirs('images')
 
-    breastCancerDT()
+    # breastCancerDT()
     winequalityDT()
