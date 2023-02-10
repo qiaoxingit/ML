@@ -98,10 +98,10 @@ def winequalityNN():
     plot_loss_curve(training_loss, test_loss, "training loss", "test loss", "wine quality")
 
 
-if __name__ == "__main__":
-    if not os.path.exists('images'):
-        os.makedirs('images')
+# if __name__ == "__main__":
+#     if not os.path.exists('images'):
+#         os.makedirs('images')
 
-    # breastCancerNN()
-    winequalityNN()
+#     # breastCancerNN()
+#     winequalityNN()
     

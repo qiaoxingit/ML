@@ -59,9 +59,9 @@ def winequalityboost():
     plot_learning_curve(clf, winequality_training_X, winequality_training_y, title="winequality learning curve boost")
 
 
-if __name__ == "__main__":
-    if not os.path.exists('images'):
-        os.makedirs('images')
+# if __name__ == "__main__":
+#     if not os.path.exists('images'):
+#         os.makedirs('images')
 
-    breastCancerboost()
-    winequalityboost()
+#     breastCancerboost()
+#     winequalityboost()

@@ -111,9 +111,9 @@ def winequalityDT():
                     title="wine quality learning curve decision tree")
 
 
-if __name__ == "__main__":
-    if not os.path.exists('images'):
-        os.makedirs('images')
+# if __name__ == "__main__":
+#     if not os.path.exists('images'):
+#         os.makedirs('images')
 
-    # breastCancerDT()
-    winequalityDT()
+#     # breastCancerDT()
+#     winequalityDT()
