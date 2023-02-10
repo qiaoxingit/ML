@@ -100,6 +100,7 @@ def after_tuned_evaluation(clf,trainX, trainy, testX, testy, title):
 
 
 def load_winequality():
+    np.random.seed(2636456)
 
     winequality = pd.read_csv('winequality.csv', sep=',')
 
@@ -120,6 +121,7 @@ def load_winequality():
 
 
 def load_breastCancer():
+    np.random.seed(2636456)
 
     breastCancer = pd.read_csv('breastCancer.csv', sep=',')
     # breastCancer = breastCancer.to_numpy()
@@ -127,14 +129,18 @@ def load_breastCancer():
     X = breastCancer.values[:, 0:-1]
     y = breastCancer.values[:, -1]
 
-    ros = RandomOverSampler(random_state=42)
-    X_res, y_res=ros.fit_resample(X, y)
+    # ros = RandomOverSampler(random_state=42)
+    # X_res, y_res=ros.fit_resample(X, y)
+
+    # breastCancer_training_X, breastCancer_test_X, breastCancer_training_y, breastCancer_test_y = train_test_split(
+    #     X_res, y_res, random_state=42, test_size=0.25)
 
     breastCancer_training_X, breastCancer_test_X, breastCancer_training_y, breastCancer_test_y = train_test_split(
-        X_res, y_res, random_state=42, test_size=0.25)
+        X, y, random_state=42, test_size=0.25)
 
-    scaler = preprocessing.StandardScaler()
-    scaler_breastCancer_training_x = scaler.fit_transform(breastCancer_training_X)
-    scaler_breastCancer_test_x = scaler.fit_transform(breastCancer_test_X)
+    # scaler = preprocessing.StandardScaler()
+    # scaler_breastCancer_training_x = scaler.fit_transform(breastCancer_training_X)
+    # scaler_breastCancer_test_x = scaler.fit_transform(breastCancer_test_X)
 
-    return scaler_breastCancer_training_x, breastCancer_training_y, scaler_breastCancer_test_x, breastCancer_test_y
+    # return scaler_breastCancer_training_x, breastCancer_training_y, scaler_breastCancer_test_x, breastCancer_test_y
+    return breastCancer_training_X, breastCancer_training_y, breastCancer_test_X, breastCancer_test_y

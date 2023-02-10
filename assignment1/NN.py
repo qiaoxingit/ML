@@ -34,11 +34,10 @@ def nn_learning_rate(trainX, trainy, title):
 
     plot_tuning_curve(train_scores, test_scores, learning_rates, "learning rate","neural network learning rate vs accuracy of "+title)   
 
-
-def run_loss_curve(clf, trainX, trainy, title):    
-    clf.fit(trainX, trainy)
-
-    plt.plot(clf.loss_curve_, label = 'loss')
+def plot_loss_curve(data1, data2, title1, title2, title):
+    plt.plot(data1, label = title1)
+    
+    plt.plot(data2, label = title2)
     plt.xlabel('Iteration')
     plt.ylabel('Loss')
     plt.title("Loss curve for neural network "+title)
@@ -46,6 +45,21 @@ def run_loss_curve(clf, trainX, trainy, title):
     plt.savefig('images/'+title+" Loss curve for neural network")
     plt.clf()
 
+# def run_loss_curve(clf, trainX, trainy, testX, testy, title):    
+#     clf.fit(trainX, trainy)
+
+#     plt.plot(clf.loss_curve_, label = 'training loss')
+#     clf.fit(testX, testy)
+#     plt.plot(clf.loss_curve_, label = 'test loss')
+#     plt.xlabel('Iteration')
+#     plt.ylabel('Loss')
+#     plt.title("Loss curve for neural network "+title)
+#     plt.legend(loc='best')
+#     plt.savefig('images/'+title+" Loss curve for neural network")
+#     plt.clf()
+def run_loss_curve(clf, trainX, trainy):    
+    clf.fit(trainX, trainy)
+    return clf.loss_curve_
 
 def breastCancerNN():
     breastCancer_training_X, breastCancer_training_y, breastCancer_test_X,  breastCancer_test_y = load_breastCancer()
@@ -53,12 +67,16 @@ def breastCancerNN():
     hidden_layers(breastCancer_training_X, breastCancer_training_y, 'breastCancer')
     nn_learning_rate(breastCancer_training_X, breastCancer_training_y, 'breastCancer')
     
-    clf = MLPClassifier(hidden_layer_sizes=3, learning_rate_init=0.02)
+    clf = MLPClassifier(hidden_layer_sizes=3, learning_rate_init=0.01)
 
     after_tuned_evaluation(clf, breastCancer_training_X, breastCancer_training_y, breastCancer_test_X, breastCancer_test_y, "breast cancer NN ")
     
     plot_learning_curve(clf, breastCancer_training_X, breastCancer_training_y, title="breast cancer learning curve neural network")
-    run_loss_curve(clf, breastCancer_training_X, breastCancer_training_y, "breast cancer loss curve")
+    # run_loss_curve(clf, breastCancer_training_X, breastCancer_training_y, breastCancer_test_X, breastCancer_test_y, "breast cancer loss curve")
+    
+    training_loss = run_loss_curve(clf, breastCancer_training_X, breastCancer_training_y)
+    test_loss = run_loss_curve(clf, breastCancer_test_X, breastCancer_test_y)
+    plot_loss_curve(training_loss, test_loss, "training loss", "test loss", "breast Cancer")
 
 
 def winequalityNN():
@@ -74,12 +92,16 @@ def winequalityNN():
     after_tuned_evaluation(clf, winequality_training_X, winequality_training_y, winequality_test_X, winequality_test_y, "wine quality NN ")
     
     plot_learning_curve(clf, winequality_training_X, winequality_training_y, title="winequality learning curve neural network")
-    run_loss_curve(clf, winequality_training_X, winequality_training_y, "winequality loss curve")
+    # run_loss_curve(clf, winequality_training_X, winequality_training_y, "winequality loss curve")
+    training_loss = run_loss_curve(clf, winequality_training_X, winequality_training_y)
+    test_loss = run_loss_curve(clf, winequality_test_X, winequality_test_y)
+    plot_loss_curve(training_loss, test_loss, "training loss", "test loss", "wine quality")
 
-# if __name__ == "__main__":
-#     if not os.path.exists('images'):
-#         os.makedirs('images')
 
-#     breastCancerNN()
-    # winequalityNN()
+if __name__ == "__main__":
+    if not os.path.exists('images'):
+        os.makedirs('images')
+
+    # breastCancerNN()
+    winequalityNN()
     

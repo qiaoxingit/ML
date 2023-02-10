@@ -44,12 +44,12 @@ def tree_alpha(trainX, trainy, title):
 
 
 def complexity_alpha(trainX, trainy, testX, testy, title):
-    clf = DecisionTreeClassifier(random_state=0)
+    clf = DecisionTreeClassifier()
     path = clf.cost_complexity_pruning_path(trainX, trainy)
-    ccp_alphas, impurities = path.ccp_alphas, path.impurities
+    ccp_alphas = path.ccp_alphas
     clfs = []
     for ccp_alpha in ccp_alphas:
-        clf = DecisionTreeClassifier(random_state=0, ccp_alpha=ccp_alpha)
+        clf = DecisionTreeClassifier(ccp_alpha=ccp_alpha)
         clf.fit(trainX, trainy)
         clfs.append(clf)
 
@@ -60,6 +60,7 @@ def complexity_alpha(trainX, trainy, testX, testy, title):
     
 
     fig, ax = plt.subplots()
+    # plt.xlim(0.0, 0.003)
     ax.set_xlabel("alpha")
     ax.set_ylabel("accuracy")
     ax.set_title("decision tree tune alpha " +title)
@@ -86,7 +87,7 @@ def breastCancerDT():
         breastCancer_test_X, breastCancer_test_y, 'breastCancer')
 
     clf = DecisionTreeClassifier(
-        max_depth=None, min_samples_leaf=1, ccp_alpha=0.001)
+        max_depth=None, min_samples_leaf=1, ccp_alpha=0.004)
 
     after_tuned_evaluation(clf, breastCancer_training_X, breastCancer_training_y, breastCancer_test_X, breastCancer_test_y, "breast cancer DT ")
     plot_learning_curve(clf, breastCancer_training_X, breastCancer_training_y,
@@ -103,16 +104,16 @@ def winequalityDT():
     complexity_alpha(winequality_training_X, winequality_training_y, winequality_test_X, winequality_test_y, "winequality")
 
     clf = DecisionTreeClassifier(
-        max_depth=None, min_samples_leaf=1, ccp_alpha=0.001)
+        max_depth=20, min_samples_leaf=1, ccp_alpha=0.000)
 
     after_tuned_evaluation(clf, winequality_training_X, winequality_training_y, winequality_test_X, winequality_test_y, "wine quality DT ")
     plot_learning_curve(clf, winequality_training_X, winequality_training_y,
                     title="wine quality learning curve decision tree")
 
 
-# if __name__ == "__main__":
-#     if not os.path.exists('images'):
-#         os.makedirs('images')
+if __name__ == "__main__":
+    if not os.path.exists('images'):
+        os.makedirs('images')
 
-#     breastCancerDT()
-    # winequalityDT()
+    # breastCancerDT()
+    winequalityDT()
