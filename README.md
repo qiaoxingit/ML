@@ -2,7 +2,7 @@
 
 ## Setup Docker Dev Environment
 
-`docker dev create -d -o https://github.com/qiaoxingit/ML.git`
+`docker dev create --name mlenv -d https://github.com/qiaoxingit/ML.git`
 
 ## Create Docker Dev Environment
 
