@@ -11,9 +11,9 @@ dependencies:
 - future=0.18.2
 - scikit-learn=1.2.0
 - imbalanced-learn=0.10.1
-- mlrose-hiive=2.2.4
 - pip
 - pip:
   - jsons==0.8.8
   - gradescope-utils
   - subprocess32
+  - mlrose-hiive==2.2.4
