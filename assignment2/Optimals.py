@@ -67,7 +67,7 @@ def mimic_popsize_optimal(problem, pop_sizes, random_seeds, label, title):
 
         best_fitnesses=[]
         for random_seed in random_seeds:
-            best_state, best_fitness, _=mimic(problem, pop_size=pop_size, max_attempts=100, max_iters=300, curve=False,random_state=random_seed)
+            best_state, best_fitness, _=mimic(problem, pop_size=pop_size, max_attempts=100, max_iters=300, curve=False,random_state=random_seed, fast_mimic = True)
 
             best_fitnesses.append(best_fitness)
 
@@ -84,10 +84,64 @@ def mimic_keepPct_optimal(problem, keep_pcts, random_seeds, label, title):
 
         best_fitnesses=[]
         for random_seed in random_seeds:
-            best_state, best_fitness, _=mimic(problem, keep_pct=keep_pct, max_attempts=100, max_iters=300, curve=False,random_state=random_seed)
+            best_state, best_fitness, _=mimic(problem, keep_pct=keep_pct, max_attempts=100, max_iters=300, curve=False,random_state=random_seed, fast_mimic = True)
 
             best_fitnesses.append(best_fitness)
 
         mimic_fitness.append(best_fitnesses)
 
     util.plot_figure(x=keep_pcts, y=np.array(mimic_fitness), xlabel="mimic keep pec", ylabel="fitness", label = label, title = title)
+
+
+def run_problems(problem, decay_rate, GA_popSize, GA_mutationProb, mimic_popSize, mimic_keepPct, random_seeds, title):
+
+    rhc_fitness, sa_fitness, ga_fitness, mimic_fitness = [], [], [], []
+    rhc_time, sa_time, ga_time, mimic_time =[], [], [], []
+
+    exp_decay = ExpDecay(init_temp=100, exp_const=decay_rate, min_temp=0.001)
+
+    for random_seed in random_seeds:
+
+        start_time = time.time()
+        best_state, best_fitness, fitness_curve = random_hill_climb(problem, max_attempts=1000, max_iters=1000, curve = True, random_state=random_seed)
+        rhc_time.append(time.time() - start_time)
+        rhc_fitness.append(fitness_curve)
+
+        start_time =time.time()
+        best_state, best_fitness, fitness_curve = simulated_annealing(problem, schedule=exp_decay, max_attempts=1000, max_iters=1000, curve=True, random_state=random_seed)
+        sa_time.append(time.time() - start_time)
+        sa_fitness.append(fitness_curve)
+
+        start_time =time.time()
+        best_state, best_fitness, fitness_curve = genetic_alg(problem, pop_size=GA_popSize, mutation_prob=GA_mutationProb, max_attempts=500, max_iters=500, curve=True, random_state=random_seed)
+        ga_time.append(time.time() - start_time)
+        ga_fitness.append(fitness_curve)
+
+        start_time =time.time()
+        best_state, best_fitness, fitness_curve = mimic(problem, pop_size=mimic_popSize, keep_pct=mimic_keepPct, max_attempts=100, max_iters=100, curve=True, random_state=random_seed)
+        mimic_time.append(time.time() - start_time)
+        mimic_fitness.append(fitness_curve)
+        
+    plt.figure()
+    plt.title(title +" fitness curve")
+    plt.xlabel("fitness vs iterations")
+    plt.ylabel("fitness")
+    plt.grid()
+    plt.plot(np.arange(1, 1000), np.array(rhc_fitness), label = 'RHC')
+    plt.plot(np.arange(1, 1000), np.array(sa_fitness), label = 'SA')
+    plt.plot(np.arange(1, 1000), np.array(ga_fitness), label = 'GA')
+    plt.plot(np.arange(1, 1000), np.array(mimic_fitness), label = 'MIMIC')
+    plt.legend(loc="best")
+    plt.savefig('images/'+title+" fitness curve")
+
+    plt.figure()
+    plt.title(title+" time curve")
+    plt.xlabel("time vs iterations")
+    plt.ylabel("time")
+    plt.grid()
+    plt.plot(np.arange(1, 1000), np.array(rhc_time), label = 'RHC')
+    plt.plot(np.arange(1, 1000), np.array(sa_time), label = 'SA')
+    plt.plot(np.arange(1, 1000), np.array(ga_time), label = 'GA')
+    plt.plot(np.arange(1, 1000), np.array(mimic_time), label = 'MIMIC')
+    plt.legend(loc="best")
+    plt.savefig('images/'+title +" time curve")
