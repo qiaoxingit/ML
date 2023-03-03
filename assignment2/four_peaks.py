@@ -8,7 +8,7 @@ from mlrose_hiive import ExpDecay
 from Optimals import SA_optimal, GA_mutationProb_optimal, GA_popsize_optimal, mimic_keepPct_optimal, mimic_popsize_optimal, run_problems
 
 fitness = mlr.FourPeaks(t_pct=0.1)
-problem = mlr.DiscreteOpt(100, fitness = fitness, maximize=True, max_val=2)
+problem = mlr.DiscreteOpt(100, fitness_fn = fitness, maximize=True, max_val=2)
 random_seeds = [2636 + 8 * i for i in range(6)]
 
 def run_four_peaks():

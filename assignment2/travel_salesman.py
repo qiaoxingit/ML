@@ -15,7 +15,7 @@ dist_list = [(0, 1, 3.1623), (0, 2, 4.1231), (0, 3, 5.8310), (0, 4, 4.2426),
              (3, 6, 5.0990), (3, 7, 4.1231), (4, 5, 2.2361), (4, 6, 3.1623), 
              (4, 7, 2.2361), (5, 6, 2.2361), (5, 7, 3.1623), (6, 7, 2.2361)]
 fitness = mlr.TravellingSales(distances=dist_list)
-problem = mlr.TSPOpt(length = 8, fitness = fitness, maximize=False)
+problem = mlr.TSPOpt(length = 8, fitness_fn = fitness, maximize=False)
 random_seeds = [2636 + 8 * i for i in range(6)]
 
 def run_travel_salesman():
