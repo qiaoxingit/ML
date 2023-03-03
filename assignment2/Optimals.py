@@ -42,21 +42,21 @@ def GA_popsize_optimal(problem, pop_sizes, random_seeds, label, title):
     util.plot_figure(x=pop_sizes, y=np.array(ga_fitness), xlabel=" GA pop size", ylabel="fitness", label = label, title = title)
 
 
-def GA_mutationProb_optimal(problem, mutation_probs, random_seeds, label, title):
+def GA_pop_breed_pec_optimal(problem, pop_breed_pecs, random_seeds, label, title):
 
     ga_fitness = []
 
-    for mutation_prob in mutation_probs:
+    for pop_breed_pec in pop_breed_pecs:
 
         best_fitnesses=[]
         for random_seed in random_seeds:
-            best_state, best_fitness, _=genetic_alg(problem, mutation_prob=mutation_prob, max_attempts=100, max_iters=300, curve=False,random_state=random_seed)
+            best_state, best_fitness, _=genetic_alg(problem, pop_breed_percent=pop_breed_pec, max_attempts=100, max_iters=300, curve=False,random_state=random_seed)
 
             best_fitnesses.append(best_fitness)
 
         ga_fitness.append(best_fitnesses)
 
-    util.plot_figure(x=mutation_probs, y=np.array(ga_fitness), xlabel="GA mutation prob", ylabel="fitness", label = label, title = title)
+    util.plot_figure(x=pop_breed_pecs, y=np.array(ga_fitness), xlabel="GA pop breed prcentage", ylabel="fitness", label = label, title = title)
 
 
 def mimic_popsize_optimal(problem, pop_sizes, random_seeds, label, title):
@@ -67,7 +67,7 @@ def mimic_popsize_optimal(problem, pop_sizes, random_seeds, label, title):
 
         best_fitnesses=[]
         for random_seed in random_seeds:
-            best_state, best_fitness, _=mimic(problem, pop_size=pop_size, max_attempts=100, max_iters=300, curve=False,random_state=random_seed, fast_mimic = True)
+            best_state, best_fitness, _=mimic(problem, pop_size=pop_size, max_attempts=100, max_iters=300, curve=False,random_state=random_seed)
 
             best_fitnesses.append(best_fitness)
 
@@ -84,7 +84,7 @@ def mimic_keepPct_optimal(problem, keep_pcts, random_seeds, label, title):
 
         best_fitnesses=[]
         for random_seed in random_seeds:
-            best_state, best_fitness, _=mimic(problem, keep_pct=keep_pct, max_attempts=100, max_iters=300, curve=False,random_state=random_seed, fast_mimic = True)
+            best_state, best_fitness, _=mimic(problem, keep_pct=keep_pct, max_attempts=100, max_iters=300, curve=False,random_state=random_seed)
 
             best_fitnesses.append(best_fitness)
 
@@ -93,7 +93,7 @@ def mimic_keepPct_optimal(problem, keep_pcts, random_seeds, label, title):
     util.plot_figure(x=keep_pcts, y=np.array(mimic_fitness), xlabel="mimic keep pec", ylabel="fitness", label = label, title = title)
 
 
-def run_problems(problem, rhc_max_attempts, decay_rate, sa_max_attempts, ga_max_attempts, GA_popSize, GA_mutationProb, mimic_max_attempts, mimic_popSize, mimic_keepPct, random_seeds, title):
+def run_problems(problem, rhc_max_attempts, decay_rate, sa_max_attempts, ga_max_attempts, GA_popSize, GA_pop_breed_pec, mimic_max_attempts, mimic_popSize, mimic_keepPct, random_seeds, title):
 
     rhc_fitness, sa_fitness, ga_fitness, mimic_fitness = [], [], [], []
     rhc_time, sa_time, ga_time, mimic_time =[], [], [], []
@@ -113,7 +113,7 @@ def run_problems(problem, rhc_max_attempts, decay_rate, sa_max_attempts, ga_max_
         sa_fitness.append(fitness_curve)
 
         start_time =time.time()
-        best_state, best_fitness, fitness_curve = genetic_alg(problem, pop_size=GA_popSize, mutation_prob=GA_mutationProb, max_attempts=ga_max_attempts, max_iters=ga_max_attempts, curve=True, random_state=random_seed)
+        best_state, best_fitness, fitness_curve = genetic_alg(problem, pop_size=GA_popSize, pop_breed_percent=GA_pop_breed_pec, max_attempts=ga_max_attempts, max_iters=ga_max_attempts, curve=True, random_state=random_seed)
         ga_time.append(time.time() - start_time)
         ga_fitness.append(fitness_curve)
 
