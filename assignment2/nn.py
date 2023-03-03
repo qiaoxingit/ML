@@ -68,21 +68,21 @@ def plot_tuning_curve(iterations, train_scores, test_scores, ylim=(0.5, 1.01)):
     plt.plot(iterations, test_scores_mean, 'o-', color="g",
              label="Cross-validation score")
 
-def evaluation(trainX, trainy, testX, testy):
+def evaluation(estimator, trainX, trainy, testX, testy):
 
     exp_decay = ExpDecay(init_temp=100, exp_const=0.2, min_temp=0.001)
 
     #rhc Training
-    rhc_nn = mlr.NeuralNetwork(hidden_nodes=[50, 30], algorithm="random_hill_climb", learning_rate=0.001, max_attempts=200, max_iters=200, curve=True)
+    #rhc_nn = mlr.NeuralNetwork(hidden_nodes=[50, 30], algorithm=algorithm, learning_rate=0.001, max_attempts=200, max_iters=200, curve=True)
     start_time = time.time()
-    rhc_nn.fit(trainX, trainy)
+    estimator.fit(trainX, trainy)
     rhc_training_time = time.time() - start_time
-    nn_loss = rhc_nn.loss
-    nn_fitness_curve = rhc_nn.fitness_curve
+    nn_loss = estimator.loss
+    nn_fitness_curve = estimator.fitness_curve
 
     #rhc Predict
     start_time = time.time()
-    predy = rhc_nn.predict(testX)
+    predy = estimator.predict(testX)
     rhc_predict_time = time.time()- start_time
 
     f1 = f1_score(testy,predy, average='weighted')
@@ -91,14 +91,16 @@ def evaluation(trainX, trainy, testX, testy):
     recall = recall_score(testy,predy, average='weighted')
 
 
-    sys.stdout = open(title+ "after_tuned_test_score.txt", "w")
+    sys.stdout = open("rhc test_score.txt", "w")
 
     print("Model Evaluation Metrics Using Untouched Test Dataset")
     print("*****************************************************")
-    print("Model Training Time (s):   "+"{:.5f}".format(training_time))
-    print("Model Prediction Time (s): "+"{:.5f}\n".format(pred_time))
+    print("Model Training Time (s):   "+"{:.5f}".format(rhc_training_time))
+    print("Model Prediction Time (s): "+"{:.5f}\n".format(rhc_predict_time))
     print("F1 Score:  "+"{:.2f}".format(f1))
     print("Accuracy:  "+"{:.2f}".format(accuracy)) 
     print("Precision: "+"{:.2f}".format(precision)+"     Recall:    "+"{:.2f}".format(recall))
     print("*****************************************************")
     sys.stdout.close()
+
+
