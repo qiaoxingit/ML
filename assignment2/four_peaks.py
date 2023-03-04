@@ -9,6 +9,7 @@ from Optimals import SA_optimal, GA_pop_breed_pec_optimal, GA_popsize_optimal, m
 
 fitness = mlr.FourPeaks(t_pct=0.1)
 problem = mlr.DiscreteOpt(100, fitness_fn = fitness, maximize=True, max_val=2)
+problem.set_mimic_fast_mode = True
 random_seeds = [2636 + 8 * i for i in range(6)]
 
 def run_four_peaks():
