@@ -22,16 +22,22 @@ random_seeds = [2636 + 8 * i for i in range(3)]
 
 def run_travel_salesman():
 
+    print("tsm sa" + time.time())
     SA_optimal(problem = problem, decay_rates=np.arange(0.005, 0.1, 0.005),random_seeds=random_seeds, label = "Travel Salesmen SA ExpDecay rates", title = "Travel Salesmen SA ExpDecay rates optimization")
 
+    print("tsm ga popsize" + time.time())
     GA_popsize_optimal(problem=problem, pop_sizes=np.arange(100, 2000, 100), random_seeds=random_seeds, label = "Travel Salesmen GA pop size", title = "Travel Salesmen GA pop size optimization")
 
+    print("tsm ga breed" + time.time())
     GA_pop_breed_pec_optimal(problem=problem, pop_breed_pecs=np.arange(0.05, 1, 0.1), random_seeds=random_seeds, label = "fTravel Salesmen GA  pop breed pec", title = "Travel Salesmen GA  pop breed pec optimization")
 
+    print("tsm mimic popsize" + time.time())
     mimic_popsize_optimal(problem=problem, pop_sizes=np.arange(100, 2000, 100), random_seeds=random_seeds, label = "Travel Salesmen mimic pop size", title = "Travel Salesmen mimic pop size optimization")
 
+    print("tsm mimic keepec" + time.time())
     mimic_keepPct_optimal(problem=problem, keep_pcts=np.arange(0.05, 1, 0.1), random_seeds=random_seeds, label = "Travel Salesmen mimic keep pct", title = "Travel Salesmen mimic keep pct optimization")
-
+    
+    print("run tsm" + time.time())
     run_problems(problem=problem, rhc_max_attempts=800, decay_rate=0.02, sa_max_attempts=800, ga_max_attempts=100, GA_popSize=100, GA_pop_breed_pecs=0.1, mimic_max_attempts=30, mimic_popSize=700, mimic_keepPct=0.2, random_seeds=random_seeds, title = "Travel Salesmen")
 
 

@@ -15,16 +15,23 @@ random_seeds = [2636 + 8 * i for i in range(3)]
 
 def run_flip_flop():
 
+    print("flip flop sa" + time.time())
     SA_optimal(problem = problem, decay_rates=np.arange(0.005, 1.5, 0.05),random_seeds=random_seeds, label = "flip_flop SA ExpDecay rates", title = "flip_flop SA ExpDecay rates optimization")
-
+    
+    
+    print("flip flop ga popsize" + time.time())
     GA_popsize_optimal(problem=problem, pop_sizes=np.arange(100, 2000, 100), random_seeds=random_seeds, label = "flip_flop GA pop size", title = "flip_flop GA pop size optimization")
 
+    print("flip flop ga breed pec" + time.time())
     GA_pop_breed_pec_optimal(problem=problem, pop_breed_pecs=np.arange(0.05, 1, 0.1), random_seeds=random_seeds, label = "flip_flop GA pop breed pec", title = "flip_flop GA pop breed pec optimization")
-
+   
+    print("flip flop mimic popsize" + time.time())
     mimic_popsize_optimal(problem=problem, pop_sizes=np.arange(100, 2000, 100), random_seeds=random_seeds, label = "flip_flop mimic pop size", title = "flip_flop mimic pop size optimization")
-
+    
+    print("flip flop mimic keepct" + time.time())
     mimic_keepPct_optimal(problem=problem, keep_pcts=np.arange(0.05, 1, 0.1), random_seeds=random_seeds, label = "flip_flop mimic keep pct", title = "flip_flop mimic keep pct optimization")
-
+   
+    print("run flip flop" + time.time())
     run_problems(problem=problem, rhc_max_attempts=1000, decay_rate=0.3, sa_max_attempts=1000, ga_max_attempts=500, GA_popSize=300, GA_pop_breed_pec=0.2, mimic_max_attempts=100, mimic_popSize=1500, mimic_keepPct=0.4, random_seeds=random_seeds, title = "Flip Flop")
 
 
