@@ -16,7 +16,7 @@ dist_list = [(0, 1, 3.1623), (0, 2, 4.1231), (0, 3, 5.8310), (0, 4, 4.2426),
              (4, 7, 2.2361), (5, 6, 2.2361), (5, 7, 3.1623), (6, 7, 2.2361)]
 fitness = mlr.TravellingSales(distances=dist_list)
 problem = mlr.TSPOpt(length = 8, fitness_fn = fitness, maximize=False)
-random_seeds = [2636 + 8 * i for i in range(6)]
+random_seeds = [2636 + 8 * i for i in range(3)]
 
 def run_travel_salesman():
 
@@ -24,11 +24,11 @@ def run_travel_salesman():
 
     GA_popsize_optimal(problem=problem, pop_sizes=np.arange(100, 2000, 100), random_seeds=random_seeds, label = "Travel Salesmen GA pop size", title = "Travel Salesmen GA pop size optimization")
 
-    GA_pop_breed_pec_optimal(problem=problem, pop_breed_pecs=np.arange(0, 1, 0.05), random_seeds=random_seeds, label = "fTravel Salesmen GA  pop breed pec", title = "Travel Salesmen GA  pop breed pec optimization")
+    GA_pop_breed_pec_optimal(problem=problem, pop_breed_pecs=np.arange(0.05, 1, 0.1), random_seeds=random_seeds, label = "fTravel Salesmen GA  pop breed pec", title = "Travel Salesmen GA  pop breed pec optimization")
 
     mimic_popsize_optimal(problem=problem, pop_sizes=np.arange(100, 2000, 100), random_seeds=random_seeds, label = "Travel Salesmen mimic pop size", title = "Travel Salesmen mimic pop size optimization")
 
-    mimic_keepPct_optimal(problem=problem, keep_pcts=np.arange(0, 1, 0.05), random_seeds=random_seeds, label = "Travel Salesmen mimic keep pct", title = "Travel Salesmen mimic keep pct optimization")
+    mimic_keepPct_optimal(problem=problem, keep_pcts=np.arange(0.05, 1, 0.1), random_seeds=random_seeds, label = "Travel Salesmen mimic keep pct", title = "Travel Salesmen mimic keep pct optimization")
 
     run_problems(problem=problem, rhc_max_attempts=800, decay_rate=0.02, sa_max_attempts=800, ga_max_attempts=100, GA_popSize=100, GA_pop_breed_pecs=0.1, mimic_max_attempts=30, mimic_popSize=700, mimic_keepPct=0.2, random_seeds=random_seeds, title = "Travel Salesmen")
 
