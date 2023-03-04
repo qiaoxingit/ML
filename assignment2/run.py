@@ -1,4 +1,4 @@
-import flip_flop, four_peaks, travel_salesman
+import flip_flop, four_peaks, travel_salesman,nn
 import os
 if __name__ == "__main__":
     if not os.path.exists('images'):
@@ -7,3 +7,4 @@ if __name__ == "__main__":
     flip_flop.run_flip_flop()
     four_peaks.run_four_peaks()
     travel_salesman.run_travel_salesman()
+    nn.run_varied_algorithms()
