@@ -1,5 +1,6 @@
 import multiprocessing
 from multiprocessing.pool import AsyncResult
+from typing import List
 
 
 class WorkerPool:
@@ -14,7 +15,7 @@ class WorkerPool:
 
     def __init__(self):
         self.workers = multiprocessing.Pool(16)
-        self.results = [AsyncResult]
+        self.results: List[AsyncResult] = []
 
     def __new__(cls):
         if cls._instance is None:
