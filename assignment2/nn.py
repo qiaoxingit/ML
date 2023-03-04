@@ -200,4 +200,4 @@ def run_varied_algorithms():
     
 if __name__ == "__main__":
 
-    run_varied_lgorithms()
+    run_varied_algorithms()
