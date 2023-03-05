@@ -36,13 +36,13 @@ def run_run_problems():
     run_problems(problem=problem, rhc_max_attempts=1000, decay_rate=0.3, sa_max_attempts=1000, ga_max_attempts=500, GA_popSize=1200, GA_pop_breed_pec=0.2, mimic_max_attempts=50, mimic_popSize=1300, mimic_keepPct=0.5, random_seeds=random_seeds, title = "Flip Flop")
 
 def run_flip_flop():
-    pass
     # workers.run_task(run_SA_optimal)
     # workers.run_task(run_GA_popsize_optimal)
     # workers.run_task(run_GA_pop_breed_pec_optimal)
     # worker_pool.run_task(run_mimic_popsize_optimal)
     #workers.run_task(run_mimic_keepPct_optimal)
     # workers.run_task(run_run_problems)
+    run_run_problems()
 
 if __name__ == "__main__":
     # run_run_problems()

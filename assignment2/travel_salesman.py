@@ -42,7 +42,7 @@ def run_task6():
     run_problems(problem=problem, rhc_max_attempts=800, decay_rate=0.02, sa_max_attempts=800, ga_max_attempts=100, GA_popSize=100, GA_pop_breed_pec=0.1, mimic_max_attempts=30, mimic_popSize=300, mimic_keepPct=0.2, random_seeds=random_seeds, title = "Travel Salesmen")
 
 def run_travel_salesman():
-    pass
+    run_task6()
     # workers.run_task(run_task1)
     #workers.run_task(run_task2)
     # workers.run_task(run_task3)
