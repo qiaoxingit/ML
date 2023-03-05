@@ -190,6 +190,9 @@ def run_problems(problem, rhc_max_attempts, decay_rate, sa_max_attempts, ga_max_
             log(f'{counter} / {total} is done')
             counter += 1
 
+        rhc_fitness = np.concatenate((rhc_fitness[0], rhc_fitness[1], rhc_fitness[2]), axis=0)
+        rhc_fitness = rhc_fitness[:,0]
+
         for async_sa_fitness in async_sa_fitnesses:
             time_spent, fitness = async_sa_fitness.get()
             sa_fitness.append(fitness)
@@ -197,6 +200,9 @@ def run_problems(problem, rhc_max_attempts, decay_rate, sa_max_attempts, ga_max_
             log(f'{counter} / {total} is done')
             counter += 1
         
+        sa_fitness = np.concatenate((sa_fitness[0], sa_fitness[1], sa_fitness[2]), axis=0)
+        sa_fitness = sa_fitness[:,0]
+
         for async_ga_fitness in async_ga_fitnesses:
             time_spent, fitness = async_ga_fitness.get()
             ga_fitness.append(fitness)
@@ -204,6 +210,9 @@ def run_problems(problem, rhc_max_attempts, decay_rate, sa_max_attempts, ga_max_
             log(f'{counter} / {total} is done')
             counter += 1
         
+        ga_fitness = np.concatenate((ga_fitness[0], ga_fitness[1], ga_fitness[2]), axis=0)
+        ga_fitness = ga_fitness[:,0]
+
         for async_mimic_fitness in async_mimic_fitnesses:
             time_spent, fitness = async_mimic_fitness.get()
             mimic_fitness.append(fitness)
@@ -211,15 +220,18 @@ def run_problems(problem, rhc_max_attempts, decay_rate, sa_max_attempts, ga_max_
             log(f'{counter} / {total} is done')
             counter += 1
 
+        mimic_fitness = np.concatenate((mimic_fitness[0], mimic_fitness[1], mimic_fitness[2]), axis=0)
+        mimic_fitness = mimic_fitness[:,0]
+
         plt.figure()
         plt.title(title +" fitness curve")
         plt.xlabel("fitness vs iterations")
         plt.ylabel("fitness")
         plt.grid()
-        plt.plot(np.arange(0, len(rhc_fitness[0])), np.array(np.mean(rhc_fitness, axis=0)), label = 'RHC')
-        plt.plot(np.arange(0, len(sa_fitness[0])), np.array(np.mean(sa_fitness, axis=0)), label = 'SA')
-        plt.plot(np.arange(0, len(ga_fitness[0])), np.array(np.mean(ga_fitness, axis=0)), label = 'GA')
-        plt.plot(np.arange(0, len(mimic_fitness[0])), np.array(np.mean(mimic_fitness, axis=0)), label = 'MIMIC')
+        plt.plot(np.arange(0, len(rhc_fitness)), np.array(rhc_fitness), label = 'RHC')
+        plt.plot(np.arange(0, len(sa_fitness)), np.array(sa_fitness), label = 'SA')
+        plt.plot(np.arange(0, len(ga_fitness)), np.array(ga_fitness), label = 'GA')
+        plt.plot(np.arange(0, len(mimic_fitness)), np.array(mimic_fitness), label = 'MIMIC')
         plt.legend(loc="best")
         plt.savefig('images/'+title+" fitness curve")
 
