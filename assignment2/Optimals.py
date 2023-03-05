@@ -181,7 +181,7 @@ def run_problems(problem, rhc_max_attempts, decay_rate, sa_max_attempts, ga_max_
             # mimic_fitness.append(fitness_curve)
 
         total = len(async_rhc_fitnesses) + len(async_sa_fitnesses) + len(async_ga_fitnesses) + len(async_mimic_fitnesses)
-        counter = 0
+        counter = 1
 
         for async_rhc_fitness in async_rhc_fitnesses:
             time_spent, fitness = async_rhc_fitness.get()
@@ -216,10 +216,10 @@ def run_problems(problem, rhc_max_attempts, decay_rate, sa_max_attempts, ga_max_
         plt.xlabel("fitness vs iterations")
         plt.ylabel("fitness")
         plt.grid()
-        plt.plot(np.arange(1, 1000), np.array(rhc_fitness), label = 'RHC')
-        plt.plot(np.arange(1, 1000), np.array(sa_fitness), label = 'SA')
-        plt.plot(np.arange(1, 1000), np.array(ga_fitness), label = 'GA')
-        plt.plot(np.arange(1, 1000), np.array(mimic_fitness), label = 'MIMIC')
+        plt.plot(np.arange(0, len(rhc_fitness[0])), np.array(np.mean(rhc_fitness, axis=0)), label = 'RHC')
+        plt.plot(np.arange(0, len(sa_fitness[0])), np.array(np.mean(sa_fitness, axis=0)), label = 'SA')
+        plt.plot(np.arange(0, len(ga_fitness[0])), np.array(np.mean(ga_fitness, axis=0)), label = 'GA')
+        plt.plot(np.arange(0, len(mimic_fitness[0])), np.array(np.mean(mimic_fitness, axis=0)), label = 'MIMIC')
         plt.legend(loc="best")
         plt.savefig('images/'+title+" fitness curve")
 
@@ -228,9 +228,9 @@ def run_problems(problem, rhc_max_attempts, decay_rate, sa_max_attempts, ga_max_
         plt.xlabel("time vs iterations")
         plt.ylabel("time")
         plt.grid()
-        plt.plot(np.arange(1, 1000), np.array(rhc_time), label = 'RHC')
-        plt.plot(np.arange(1, 1000), np.array(sa_time), label = 'SA')
-        plt.plot(np.arange(1, 1000), np.array(ga_time), label = 'GA')
-        plt.plot(np.arange(1, 1000), np.array(mimic_time), label = 'MIMIC')
+        plt.plot(np.arange(0, len(rhc_time)), np.array(rhc_time), label = 'RHC')
+        plt.plot(np.arange(0, len(sa_time)), np.array(sa_time), label = 'SA')
+        plt.plot(np.arange(0, len(ga_time)), np.array(ga_time), label = 'GA')
+        plt.plot(np.arange(0, len(mimic_time)), np.array(mimic_time), label = 'MIMIC')
         plt.legend(loc="best")
         plt.savefig('images/'+title +" time curve")
