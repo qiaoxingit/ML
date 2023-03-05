@@ -1,11 +1,14 @@
-import mlrose_hiive as mlr
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
+import multiprocessing
 import time
-from mlrose_hiive.algorithms import random_hill_climb, simulated_annealing, genetic_alg, mimic
-from mlrose_hiive import ExpDecay
+
+import matplotlib.pyplot as plt
+import numpy as np
 import util
+from helper import log
+from mlrose_hiive import ExpDecay
+from mlrose_hiive.algorithms import (genetic_alg, mimic, random_hill_climb,
+                                     simulated_annealing)
+
 
 #tune SA
 def SA_optimal(problem, decay_rates, random_seeds, label, title):
@@ -60,20 +63,33 @@ def GA_pop_breed_pec_optimal(problem, pop_breed_pecs, random_seeds, label, title
 
 
 def mimic_popsize_optimal(problem, pop_sizes, random_seeds, label, title):
+    with multiprocessing.Pool() as pool:
+        mimic_fitnesses=[]
+        async_mimic_fitnesses = []
 
-    mimic_fitness = []
+        for pop_size in pop_sizes:
+            async_best_fitnesses = []
+            for random_seed in random_seeds:
+                async_result = pool.apply_async(mimic, kwds={'problem': problem, 'pop_size': pop_size, 'max_attempts': 80, 'max_iters': 80, 'curve': False, 'random_state': random_seed},
+                                callback=lambda x:log(f'{title} is done'), error_callback=lambda x:log(f'{title} has error'))
+                log(f'random_seed {random_seed} is started in a sub pool')
+                async_best_fitnesses.append(async_result)
+            async_mimic_fitnesses.append(async_best_fitnesses)
+        
+        # wait for all computation complete
+        counter1 = 0
+        for async_mimic_fitness in async_mimic_fitnesses:
+            best_fitnesses=[]
+            counter1 += 1
+            counter2 = 0
+            for async_best_fitness in async_mimic_fitness:
+                _, best_fitness, _ = async_best_fitness.get()
+                counter2 += 1
+                log(f'returned a result: {counter1} / {len(async_mimic_fitnesses)}, {counter2} / {len(async_mimic_fitness)}')
+                best_fitnesses.append(best_fitness)
+            mimic_fitnesses.append(best_fitnesses)
 
-    for pop_size in pop_sizes:
-
-        best_fitnesses=[]
-        for random_seed in random_seeds:
-            best_state, best_fitness, _=mimic(problem, pop_size=pop_size, max_attempts=80, max_iters=80, curve=False,random_state=random_seed)
-
-            best_fitnesses.append(best_fitness)
-
-        mimic_fitness.append(best_fitnesses)
-
-    util.plot_figure(x=pop_sizes, y=np.array(mimic_fitness), xlabel="mimic pop size", ylabel="fitness", label = label, title = title)
+        util.plot_figure(x=pop_sizes, y=np.array(mimic_fitnesses), xlabel="mimic pop size", ylabel="fitness", label = label, title = title)
 
 
 def mimic_keepPct_optimal(problem, keep_pcts, random_seeds, label, title):

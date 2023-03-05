@@ -1,14 +1,18 @@
-import mlrose_hiive as mlr
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-import time
 import sys
-from mlrose_hiive import ExpDecay
-from sklearn.model_selection import train_test_split, cross_validate, ShuffleSplit
-from sklearn.metrics import roc_auc_score, accuracy_score, f1_score, precision_score, recall_score
+import time
+
+import matplotlib.pyplot as plt
+import mlrose_hiive as mlr
+import numpy as np
+import pandas as pd
+from helper import log
 from imblearn.over_sampling import RandomOverSampler
+from mlrose_hiive import ExpDecay
 from sklearn import preprocessing
+from sklearn.metrics import (accuracy_score, f1_score, precision_score,
+                             recall_score, roc_auc_score)
+from sklearn.model_selection import (ShuffleSplit, cross_validate,
+                                     train_test_split)
 
 
 def load_data():
@@ -84,7 +88,7 @@ def evaluation(estimator, trainX, trainy, testX, testy, label):
     sys.stdout.close()
 
 def run_varied_algorithms():
-
+    log('start to run neural network')
     trainX, trainy, testX, testy = load_data()
     exp_decay = ExpDecay(init_temp=100,
                          exp_const=0.1,
