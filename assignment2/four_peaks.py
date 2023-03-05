@@ -35,7 +35,7 @@ def run_task5():
 
 def run_task6():
     log('start to run run four picks')
-    run_problems(problem=problem, rhc_max_attempts=8000, decay_rate=0.015, sa_max_attempts=8000, ga_max_attempts=200, GA_popSize=250, GA_pop_breed_pec=0.7, mimic_max_attempts=300, mimic_popSize=700, mimic_keepPct=0.3, random_seeds=random_seeds, title = "Four Peaks")
+    run_problems(problem=problem, rhc_max_attempts=8000, decay_rate=0.015, sa_max_attempts=8000, ga_max_attempts=200, GA_popSize=250, GA_pop_breed_pec=0.7, mimic_max_attempts=300, mimic_popSize=700, mimic_keepPct=0.3, title = "Four Peaks")
 
 def run_four_peaks():
     # pass
