@@ -36,7 +36,7 @@ def run_task5():
 
 def run_task6():
     log('start to run run four picks')
-    run_problems(problem=problem, rhc_max_attempts=8000, decay_rate=0.02, sa_max_attempts=8000, ga_max_attempts=300, GA_popSize=1000, GA_pop_breed_pec=0.1, mimic_max_attempts=300, mimic_popSize=1000, mimic_keepPct=0.2, random_seeds=random_seeds, title = "Four Peaks")
+    run_problems(problem=problem, rhc_max_attempts=8000, decay_rate=0.02, sa_max_attempts=8000, ga_max_attempts=200, GA_popSize=1000, GA_pop_breed_pec=0.1, mimic_max_attempts=300, mimic_popSize=1000, mimic_keepPct=0.2, random_seeds=random_seeds, title = "Four Peaks")
 
 def run_four_peaks():
     workers = WorkerPool()

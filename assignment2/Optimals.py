@@ -67,7 +67,7 @@ def mimic_popsize_optimal(problem, pop_sizes, random_seeds, label, title):
 
         best_fitnesses=[]
         for random_seed in random_seeds:
-            best_state, best_fitness, _=mimic(problem, pop_size=pop_size, max_attempts=100, max_iters=300, curve=False,random_state=random_seed)
+            best_state, best_fitness, _=mimic(problem, pop_size=pop_size, max_attempts=80, max_iters=80, curve=False,random_state=random_seed)
 
             best_fitnesses.append(best_fitness)
 
@@ -84,7 +84,7 @@ def mimic_keepPct_optimal(problem, keep_pcts, random_seeds, label, title):
 
         best_fitnesses=[]
         for random_seed in random_seeds:
-            best_state, best_fitness, _=mimic(problem, keep_pct=keep_pct, max_attempts=100, max_iters=300, curve=False,random_state=random_seed)
+            best_state, best_fitness, _=mimic(problem, keep_pct=keep_pct, max_attempts=80, max_iters=80, curve=False,random_state=random_seed)
 
             best_fitnesses.append(best_fitness)
 
