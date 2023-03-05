@@ -13,11 +13,11 @@ if __name__ == "__main__":
     # log('start run_flip_flop')
     # flip_flop.run_flip_flop()
 
-    log('start run_four_peaks')
-    four_peaks.run_four_peaks()
+    # log('start run_four_peaks')
+    # four_peaks.run_four_peaks()
 
-    log('start run_travel_salesman')
-    travel_salesman.run_travel_salesman()
+    # log('start run_travel_salesman')
+    # travel_salesman.run_travel_salesman()
 
     log('start nn')
     nn.run_varied_algorithms()
