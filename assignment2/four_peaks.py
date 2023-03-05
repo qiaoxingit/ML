@@ -27,7 +27,7 @@ def run_task3():
 
 def run_task4():
     log('start to run four picks mimic popsize')
-    mimic_popsize_optimal(problem=problem, pop_sizes=np.arange(100, 2000, 100), random_seeds=random_seeds, label = "Four Peaks mimic pop size", title = "Four Peaks mimic pop size optimization")
+    mimic_popsize_optimal(problem=problem, pop_sizes=np.arange(100, 1500, 150), random_seeds=random_seeds, label = "Four Peaks mimic pop size", title = "Four Peaks mimic pop size optimization")
 
 def run_task5():
     log('start to run four picks mimic keepec')
