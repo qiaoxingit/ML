@@ -256,10 +256,10 @@ def run_problems(problem, rhc_max_attempts, decay_rate, sa_max_attempts, ga_max_
 
    
     print("*****************************************************")
-    print("rhc Time (s):   "+"{:.5f}".format(rhc_time))
-    print("sa Time (s): "+"{:.5f}\n".format(sa_time))
-    print("ga time:  "+"{:.2f}".format(ga_time))
-    print("mimic time:  "+"{:.2f}".format(mimic_time)) 
+    print("rhc Time (s):   "+rhc_time)
+    print("sa Time (s): "+sa_time)
+    print("ga time:  "+ga_time)
+    print("mimic time:  "+mimic_time)
    
     print("*****************************************************")
     sys.stdout.close()
