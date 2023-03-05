@@ -33,7 +33,7 @@ def run_mimic_keepPct_optimal():
 
 def run_run_problems():
     log('start to run run flip flop')
-    run_problems(problem=problem, rhc_max_attempts=1000, decay_rate=0.3, sa_max_attempts=1000, ga_max_attempts=500, GA_popSize=300, GA_pop_breed_pec=0.2, mimic_max_attempts=50, mimic_popSize=1500, mimic_keepPct=0.4, random_seeds=random_seeds, title = "Flip Flop")
+    run_problems(problem=problem, rhc_max_attempts=1000, decay_rate=0.3, sa_max_attempts=1000, ga_max_attempts=500, GA_popSize=1200, GA_pop_breed_pec=0.2, mimic_max_attempts=50, mimic_popSize=1300, mimic_keepPct=0.5, random_seeds=random_seeds, title = "Flip Flop")
 
 def run_flip_flop():
     pass
