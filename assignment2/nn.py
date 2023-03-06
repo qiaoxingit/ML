@@ -18,7 +18,7 @@ from sklearn.model_selection import (ShuffleSplit, cross_validate,
 def load_data():
     np.random.seed(2636456)
 
-    breastCancer = pd.read_csv('breastCancer.csv', sep=',')
+    breastCancer = pd.read_csv('assignment2/breastCancer.csv', sep=',')
     X = breastCancer.values[:, 0:-1]
     y = breastCancer.values[:, -1]
 
