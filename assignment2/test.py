@@ -19,8 +19,8 @@ def plot_learning_curve(solver, X, y, title, fname):
     norm_train_szs = (train_szs / max(train_szs)) * 100.0
 
     plt.figure()
-    plt.title(title)
-    plt.xlabel('% of Training Data')
+    plt.title(title + 'Mean accuracy vs training size')
+    plt.xlabel('Training size')
     plt.ylabel('Mean Accuracy Score')
 
     plt.plot(norm_train_szs, tr_means, 'o-', color='r', label='train')
@@ -50,12 +50,12 @@ def train(algorithm, X_train, X_test, y_train, y_test, X, y):
     plt.plot(fitness_curve)
     plt.xlabel("Iterations")
     plt.ylabel("Loss")
-    plt.table("Neural Network loss curve vs iterations for "+ algorithm)
+    plt.title("Neural Network loss curve vs iterations for "+ algorithm)
     plt.savefig(f"NN_{algorithm}_loss.png")
     plt.clf()
 
     # commented due to runtime, uncomment to generate validation curves
-    plot_learning_curve(clf, X, y, f"{algorithm} cross validation curve", f"{algorithm}_cv_curve.png")
+    plot_learning_curve(clf, X, y, algorithm, f"{algorithm}_cv_curve.png")
 
 np.random.seed(2636)
 
