@@ -95,9 +95,9 @@ def run_varied_algorithms():
                          min_temp=0.001)
 
     #rhl                     
-    nn_rhl = mlr.NeuralNetwork(hidden_nodes=[50, 30], activation='relu',
+    nn_rhl = mlr.NeuralNetwork(hidden_nodes=[5, 3], activation='sigmiod',
                            algorithm='random_hill_climb', max_iters=200,
-                           bias=True, is_classifier=True, learning_rate=0.001,
+                           bias=True, is_classifier=True, learning_rate=0.01,
                            early_stopping=False, clip_max=1e10,
                            max_attempts=200, random_state=0, curve=False)
 
@@ -110,7 +110,7 @@ def run_varied_algorithms():
     evaluation(nn_rhl, trainX=trainX, trainy=trainy, testX = testX, testy=testy, label = "rhl")
 
     #sa
-    nn_sa = mlr.NeuralNetwork(hidden_nodes=[50, 30], activation='relu',
+    nn_sa = mlr.NeuralNetwork(hidden_nodes=[50, 30], activation='sigmiod',
                            algorithm='simulated_annealing', schedule=exp_decay, max_iters=200,
                            bias=True, is_classifier=True, learning_rate=0.001,
                            early_stopping=False, clip_max=1e10,
@@ -125,7 +125,7 @@ def run_varied_algorithms():
     evaluation(nn_sa, trainX=trainX, trainy=trainy, testX = testX, testy=testy, label = "sa")
 
     #ga
-    nn_ga = mlr.NeuralNetwork(hidden_nodes=[50, 30], activation='relu',
+    nn_ga = mlr.NeuralNetwork(hidden_nodes=[50, 30], activation='sigmiod',
                            algorithm='genetic_alg', schedule=exp_decay, max_iters=200,
                            bias=True, is_classifier=True, learning_rate=0.001,
                            early_stopping=False, clip_max=1e10,
@@ -140,7 +140,7 @@ def run_varied_algorithms():
     evaluation(nn_ga, trainX=trainX, trainy=trainy, testX = testX, testy=testy, label = "ga")   
 
     #gd                    
-    nn_gd = mlr.NeuralNetwork(hidden_nodes=[50, 30], activation='relu',
+    nn_gd = mlr.NeuralNetwork(hidden_nodes=[50, 30], activation='sigmiod',
                            algorithm='gradient_decent', max_iters=200,
                            bias=True, is_classifier=True, learning_rate=0.001,
                            early_stopping=False, clip_max=1e10,
